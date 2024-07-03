@@ -1,14 +1,14 @@
 <template>
   <div>
     <div id="page-wrap">
-      <div class="img-wrap">
+      <div id="img-wrap">
         <img :src="product.imageUrl" alt="">
       </div>
       <div id="product-details">
         <h1>{{ product.name }}</h1>
         <h3 id="price">Rp{{ product.price }}</h3>
         <p>Average rating: {{ product.averageRating }}</p>
-        <button id="idadd-to-cart">Add to Cart</button>
+        <button id="add-to-cart">Add to Cart</button>
         <p>{{ product.description }}</p>
       </div>
     </div>
