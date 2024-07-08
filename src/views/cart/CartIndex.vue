@@ -4,18 +4,17 @@
       <h1>Shopping Cart</h1>
       <div 
         v-for="item in cartItems"
-
-        
+        :key="item.id"
         class="product-container"
         >
-        <img src="" alt="" class="product-image">
+        <img src="item.imageUrl" alt="" class="product-image">
         <div class="detail-wrap">
-          <h3>Title</h3>
-          <p>Rp123.000</p>
+          <h3>{{ item.name }}</h3>
+          <p>Rp{{ item.price }}</p>
         </div>
         <button class="remove-button">Remove</button>
       </div>
-      <h3 id="total-price">Total: Rp123.000</h3>
+      <h3 id="total-price">Total: Rp{{ totalPrice }}</h3>
       <button id="checkout-button">Checkout</button>
     </div>
   </div>
