@@ -7,6 +7,7 @@
         :key="item.id"
 
         :item="item"
+        v-on:remove-item="removeFromCart($event)"
       />
       <h3 id="total-price">Total: Rp{{ totalPrice}}</h3>
       <button id="checkout-button">Checkout</button>
@@ -16,7 +17,7 @@
 
 <script>
 import ItemCart from '../../components/ItemCart';
-import { cartItems } from '../../data-seed'
+import axios from 'axios'
 
 export default {
   components: {
@@ -24,7 +25,7 @@ export default {
   },
   data() {
     return {
-      cartItems
+      cartItems: []
     }
   },
   computed: {
@@ -34,6 +35,28 @@ export default {
         0
       )
     }
+  },
+  methods: {
+    async removeFromCart(product) {
+      await axios.delete(
+        `http://localhost:8000/api/orders/user/1/product/${product}`
+      )
+      let indexCart = this.cartItems.map(function(item) {
+        return item.code
+      }).indexOf(product)
+      this.cartItems.splice(indexCart, 1)
+    }
+  },
+  async created() {
+    const result = await axios.get('http://localhost:8000/api/orders/user/1')
+    let data = Object.assign({},
+      ...(result.data.map(
+        result => ({
+          cart_items: result.products
+        })
+      ))
+    )
+    this.cartItems = data.cart_items
   }
 };
 </script>
